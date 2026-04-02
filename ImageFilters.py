@@ -1,7 +1,7 @@
 # Lab 9 – Image Processing
-# Name:
-# Date:
-# Assignment:
+# Name: Nathan Heavican
+# Date: 2/2/2026
+# Assignment: Lab 9
 
 from PIL import Image
 
@@ -13,6 +13,10 @@ def swapGreenBlue(img):
     width, height = img.size
 
     # TODO: Loop through every pixel and swap green and blue values
+    for x in range(width):
+        for y in range(height):
+            red, green, blue = pixels[x,y]
+            pixels[x, y] = (red, blue, green)
 
     img.save("swapGB.png")
 
@@ -25,6 +29,13 @@ def darken(img, amount):
 
     # TODO: Loop through every pixel and reduce RGB values by amount
     # Make sure values do not go below 0
+    for x in range(width):
+        for y in range(height):
+            red, green, blue = pixels[x,y]
+            red = max(0, red - amount)
+            green = max(0, green - amount)
+            blue = max(0, blue - amount)
+            pixels[x, y] = (red, green, blue)
 
     img.save("darkImg.png")
 
@@ -46,14 +57,17 @@ def bwFilter(img):
 
 def main():
     # Open the image file
-    myImg = Image.open("durango.png")
+    myImg1 = Image.open("durango.png").convert("RGB")
 
     # Example (already completed)
-    # bwFilter(myImg)
+    bwFilter(myImg1)
 
     # Uncomment each function as you complete it
-    # swapGreenBlue(myImg)
-    # darken(myImg, 20)
+    myImg2 = Image.open("durango.png").convert("RGB")
+    swapGreenBlue(myImg2)
+    
+    myImg3 = Image.open("durango.png").convert("RGB")
+    darken(myImg3, 20)
 
 
 if __name__ == "__main__":
